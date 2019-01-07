@@ -150,7 +150,7 @@ export default class MyFirstGrid extends React.Component<any, IState> {
                     x
                   </button>
                   <button onClick={this.lockContainer.bind(this, x.i)}>
-                    lock
+                    {x.static ? "Unlock" : "Lock"}
                   </button>
                 </div>
               </div>
