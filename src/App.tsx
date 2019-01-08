@@ -1,7 +1,6 @@
 import * as React from "react";
 import "./App.css";
-
-import MyFirstGrid from "./components/layout";
+import LayoutDesign from "./components/LayoutDesign/layoutDesign";
 import logo from "./logo.svg";
 
 interface IState {
@@ -29,7 +28,7 @@ class App extends React.Component<{}, IState> {
           checked={this.state.showGrid}
           onChange={this.showGrid}
         />
-        {this.state.showGrid ? <MyFirstGrid /> : ""}
+        {this.state.showGrid ? <LayoutDesign /> : ""}
       </div>
     );
   }
