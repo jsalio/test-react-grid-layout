@@ -5,13 +5,18 @@ import logo from "./logo.svg";
 
 interface IState {
   showGrid: boolean;
+  lockDesign:boolean;
 }
 
 class App extends React.Component<{}, IState> {
   public state = {
-    showGrid: true
+    lockDesign:false,
+    showGrid: true,
   };
   public render() {
+    // tslint:disable-next-line:no-console
+    console.log(this.state)
+    const layoutView = this.getLayout()
     return (
       <div className="App">
         <header className="App-header">
@@ -28,9 +33,13 @@ class App extends React.Component<{}, IState> {
           checked={this.state.showGrid}
           onChange={this.showGrid}
         />
-        {this.state.showGrid ? <LayoutDesign /> : ""}
+        {this.state.showGrid ? layoutView : ""}
       </div>
     );
+  }
+
+  private getLayout(){
+    return <LayoutDesign isEditableLayout={this.state.lockDesign} />
   }
 
   private showGrid = () => {

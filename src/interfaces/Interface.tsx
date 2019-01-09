@@ -3,7 +3,7 @@ import ComponentA from "src/components/SampleComponentA/ComponentA";
 import ComponentB from "src/components/SampleComponentB/CompoenentB";
 
 export interface IState {
-  isEditableLayout: boolean;
+  lockDesign: boolean;
   layout: IWidget[];
   maxX: number;
   maxY: number;
@@ -22,6 +22,7 @@ export interface IRglLocation {
   widget_Width: number;
   widget_Height: number;
   isStatic: boolean;
+  designIsLocked?: boolean;
 }
 
 export interface IReactGridLayout {
@@ -30,7 +31,7 @@ export interface IReactGridLayout {
   y: number;
   w: number;
   h: number;
-  isStatic: boolean;
+  static: boolean;
 }
 
 export enum RegisterComponent {
@@ -55,12 +56,25 @@ export const translateToReactGridLayout = (
   return {
     h: widgetLocation.widget_Height,
     i: widgetLocation.id,
-    isStatic: widgetLocation.isStatic,
+    static: widgetLocation.isStatic,
     w: widgetLocation.widget_Width,
     x: widgetLocation.location_X,
     y: widgetLocation.location_Y
   };
 };
+
+export const translateToIRglLocation = (
+  reactLayout: IReactGridLayout
+): IRglLocation => {
+  return {
+    id: reactLayout.i,
+    isStatic: reactLayout.static,
+    location_X: reactLayout.x,
+    location_Y: reactLayout.y,
+    widget_Height: reactLayout.h,
+    widget_Width: reactLayout.w
+  }
+}
 
 export const GenerateGUID = () => {
   return (
@@ -93,8 +107,20 @@ export const defaultTestGrid: IWidget[] = [
       isStatic: false,
       location_X: 0,
       location_Y: 0,
-      widget_Height: 0,
-      widget_Width: 0
+      widget_Height: defaultHeight,
+      widget_Width: defaultWidth
+    }
+  },
+  {
+    componentToUse: RegisterComponent.ComponentB,
+    isStatic: false,
+    location: {
+      id: RegisterComponent.ComponentA.toString() + GenerateGUID(),
+      isStatic: false,
+      location_X: 0,
+      location_Y: 1,
+      widget_Height: defaultHeight,
+      widget_Width: defaultWidth
     }
   }
 ];
